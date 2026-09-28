@@ -96,21 +96,26 @@ create policy "customers can update own profile" on public.profiles for update t
 using ((select auth.uid()) = id)
 with check ((select auth.uid()) = id);
 
-create or replace function public.handle_new_user()
+create schema if not exists private;
+
+create or replace function private.handle_new_user()
 returns trigger
 language plpgsql
-security invoker
+security definer
 set search_path = public
-as $$
+as $
 begin
   insert into public.profiles (id, full_name)
   values (new.id, coalesce(new.raw_user_meta_data ->> 'full_name', ''))
   on conflict (id) do nothing;
   return new;
 end;
-$$;
+$;
+
+revoke all on function private.handle_new_user() from public;
+revoke all on schema private from public;
 
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
 after insert on auth.users
-for each row execute procedure public.handle_new_user();
+for each row execute procedure private.handle_new_user();
