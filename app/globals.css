@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+:root{--ink:#171714;--cream:#f5f0e7;--paper:#fbfaf7;--accent:#bd4d2c;--muted:#77736c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button,a{font:inherit}a{text-decoration:none;color:inherit}
+::selection{background:#171714;color:#f5f0e7}.grain{background-image:radial-gradient(rgba(23,23,20,.07) .6px,transparent .6px);background-size:7px 7px}
+.reveal{animation:reveal .8s cubic-bezier(.2,.8,.2,1) both}@keyframes reveal{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.marquee{animation:marquee 22s linear infinite}@keyframes marquee{to{transform:translateX(-50%)}}
