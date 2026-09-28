@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "../../lib/supabase/client";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 export default function SignUpPage() {
